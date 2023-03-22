@@ -1,9 +1,15 @@
 import { Container, Content } from './styles';
 import { FiLogIn, FiMail, FiLock, FiUser } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import {} from 'yup';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 export function SignUp() {
+  function handleSubmit(data: object): void {
+    console.log(data);
+  }
+
   return (
     <Container>
       <Content>
@@ -12,7 +18,7 @@ export function SignUp() {
           <p>area.tec.br</p>
         </header>
 
-        <form>
+        <Form onSubmit={handleSubmit}>
           <h1>Faça seu cadastro</h1>
 
           <Input
@@ -40,7 +46,7 @@ export function SignUp() {
           />
 
           <Button type='submit'>Cadastrar</Button>
-        </form>
+        </Form>
 
         <a href='new'>
           <FiLogIn />
