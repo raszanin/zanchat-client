@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  //baseURL: 'http://localhost:3333',
-  baseURL: 'http://zanchat-server.onrender.com',
+  baseURL: 'http://localhost:3333',
+  //baseURL: 'https://zanchat-server.onrender.com',
 });
 
 export default api;

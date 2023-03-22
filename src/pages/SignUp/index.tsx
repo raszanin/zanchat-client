@@ -6,9 +6,16 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import api from '../../services/api';
+
+interface SignUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export function SignUp() {
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: SignUpFormData) => {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome obrigatório'),
@@ -19,6 +26,8 @@ export function SignUp() {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      await api.post('/users', data);
     } catch (error) {
       console.log(error);
     }
