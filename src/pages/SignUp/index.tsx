@@ -1,14 +1,28 @@
+import { useCallback } from 'react';
 import { Container, Content } from './styles';
 import { FiLogIn, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
-import {} from 'yup';
+import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 export function SignUp() {
-  function handleSubmit(data: object): void {
-    console.log(data);
-  }
+  const handleSubmit = useCallback(async (data: object) => {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string().required().email('E-mail obrigatório'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <Container>
@@ -48,10 +62,10 @@ export function SignUp() {
           <Button type='submit'>Cadastrar</Button>
         </Form>
 
-        <a href='new'>
+        <Link to='/'>
           <FiLogIn />
           Logar na minha conta
-        </a>
+        </Link>
       </Content>
     </Container>
   );
